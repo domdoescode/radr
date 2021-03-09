@@ -69,13 +69,13 @@ func main() {
 	var config Config
 
 	app := &cli.App{
-		Name:  "adr",
+		Name:  "radr",
 		Usage: "Create architecture decision records from templates",
 		Flags: []cli.Flag{
 			&cli.StringFlag{
 				Name:    "config",
 				Aliases: []string{"c"},
-				Value:   ".adr.yaml",
+				Value:   ".radr.yaml",
 				Usage:   "custom config file",
 			},
 		},
@@ -98,7 +98,7 @@ func main() {
 				Action: func(c *cli.Context) error {
 					_, err := os.Stat(c.String("config"))
 					if os.IsNotExist(err) {
-						fmt.Println("creating config at .adr.yaml")
+						fmt.Println("creating config at .radr.yaml")
 
 						newConfig, err := yaml.Marshal(NewConfig())
 						if err != nil {
@@ -151,8 +151,8 @@ func main() {
 					return nil
 				},
 				Action: func(c *cli.Context) error {
-					if _, err := os.Stat(".adr.yaml"); os.IsNotExist(err) {
-						fmt.Println(".adr.yaml missing, run init first")
+					if _, err := os.Stat(".radr.yaml"); os.IsNotExist(err) {
+						fmt.Println(".radr.yaml missing, run init first")
 						os.Exit(1)
 					}
 
