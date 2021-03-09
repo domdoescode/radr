@@ -58,6 +58,13 @@ var firstTemplate string
 //go:embed templates/toc.md
 var tocTemplate string
 
+var (
+	version = "dev"
+	commit  = "none"
+	date    = "unknown"
+	builtBy = "unknown"
+)
+
 func main() {
 	var config Config
 
@@ -73,6 +80,16 @@ func main() {
 			},
 		},
 		Commands: []*cli.Command{
+			{
+				Name:        "version",
+				Aliases:     []string{"v"},
+				Usage:       "",
+				Description: "Version information for adr",
+				Action: func(c *cli.Context) error {
+					fmt.Printf("Version: %s\nCommit: %s\nBuilt At: %s\nBuilt By: %s\n", version, commit, date, builtBy)
+					return nil
+				},
+			},
 			{
 				Name:        "init",
 				Aliases:     []string{"i"},
